@@ -11,7 +11,6 @@ selecionarDocumento(nomeDocumento)
 const textoEditor = document.getElementById('editor-texto')
 
 textoEditor.addEventListener('keyup', () => {
-    //console.log(textoEditor.value)
     emitirTextoEditor({
         texto: textoEditor.value, 
         nomeDocumento,
@@ -19,7 +18,6 @@ textoEditor.addEventListener('keyup', () => {
 })
 
 function atualizaTextoEditor(texto) {
-    //console.log(texto)
     textoEditor.value = texto
 }
 
