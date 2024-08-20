@@ -7,5 +7,12 @@ io.on('connection', (socket) => {
         //console.log(texto)
         socket.broadcast.emit('texto_duplicado_para_todos', texto) //broadcast envia o texto emitido para todos o cliente, menos para quem emitiu
     })
+
+    //quando sai da pagina que tem o campo de texto aparece no terminal a mensagem de desconexão
+    socket.on("disconnect", (motivo) => {
+        console.log(`Cliente "${socket.id}" desconectado!
+        Motivo: ${motivo}`);
+      });
+    
 })
 
