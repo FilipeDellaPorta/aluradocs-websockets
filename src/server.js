@@ -1,20 +1,24 @@
-import express from 'express'
-import url from 'url'
-import path from 'path'
-import http from 'http'
-import { Server } from 'socket.io'
+import express from "express";
+import url from "url";
+import path from "path";
+import http from "http";
+import { Server } from "socket.io";
 
-const app = express()
-const porta = process.env.porta || 3000
+import "./dbConnect.js";
 
-const caminhoAtual = url.fileURLToPath(import.meta.url)
-const diretorioPublico = path.join(caminhoAtual, '../..', 'public')
-app.use(express.static(diretorioPublico))
+const app = express();
+const porta = process.env.porta || 3000;
 
-const servidorHttp = http.createServer(app)
+const caminhoAtual = url.fileURLToPath(import.meta.url);
+const diretorioPublico = path.join(caminhoAtual, "../..", "public");
+app.use(express.static(diretorioPublico));
 
-servidorHttp.listen(porta, () => console.log(`Servidor escutando na porta ${porta}`))
+const servidorHttp = http.createServer(app);
 
-const io = new Server(servidorHttp)
+servidorHttp.listen(porta, () =>
+  console.log(`Servidor escutando na porta ${porta}`)
+);
 
-export default io
+const io = new Server(servidorHttp);
+
+export default io;
