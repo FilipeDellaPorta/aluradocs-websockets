@@ -1,0 +1,26 @@
+AluraCluster
+
+alura-websockets
+
+documentos
+
+
+nome
+"JavaScript"
+texto
+"texto de javascript do mongoDB"
+
+nome
+"Node"
+texto
+"texto de node do mongoDB"
+
+nome
+"Socket.io"
+texto
+"texto de socket.io do mongoDB"
+
+nome
+"MongoDB"
+texto
+"texto de mongoDB do mongoDB"
