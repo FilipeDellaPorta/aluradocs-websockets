@@ -21,4 +21,8 @@ socket.on("disconnect", (motivo) => {
     Motivo: ${motivo}`);
 });
 
-export { emitirTextoEditor, selecionarDocumento };
+function emitirDeletarDocumento(nome) {
+  socket.emit("deletar_documento", nome);
+}
+
+export { emitirTextoEditor, selecionarDocumento, emitirDeletarDocumento };

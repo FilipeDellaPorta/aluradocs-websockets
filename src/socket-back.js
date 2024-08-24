@@ -1,6 +1,7 @@
 import {
   adicionarDocumento,
   atualizarDocumento,
+  deletarDocumento,
   encontrarDocumento,
   obterDocumentos,
 } from "./documentosDB.js";
@@ -14,10 +15,18 @@ io.on("connection", (socket) => {
   });
 
   socket.on("adicionar_documento", async (nome) => {
-    const resultado = await adicionarDocumento(nome);
+    //const nomeNormalizado = nome.toLowerCase();
 
-    if(resultado.acknowledged) {
-      io.emit("adicionar_documento_interface", nome);
+    const documentoExiste = (await encontrarDocumento(nome)) !== null;
+
+    if (documentoExiste) {
+      socket.emit("documento_existente", nome);
+    } else {
+      const resultado = await adicionarDocumento(nome);
+
+      if (resultado.acknowledged) {
+        io.emit("adicionar_documento_interface", nome);
+      }
     }
   });
 
@@ -39,8 +48,13 @@ io.on("connection", (socket) => {
     }
   });
 
-  socket.on("disconnect", (motivo) => {
-    console.log(`Cliente ${socket.id} desconectado!
-        Motivo: ${motivo}`);
+  socket.on("deletar_documento", async (nome) => {
+    const resultado = await deletarDocumento(nome);
+
+    console.log(resultado);
   });
+
+  /*socket.on("disconnect", (motivo) => {
+    console.log(`Cliente ${socket.id} desconectado! Motivo: ${motivo}`);
+  });*/
 });
