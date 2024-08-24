@@ -1,5 +1,6 @@
 import {
-  atualizaDocumento,
+  adicionarDocumento,
+  atualizarDocumento,
   encontrarDocumento,
   obterDocumentos,
 } from "./documentosDB.js";
@@ -10,6 +11,14 @@ io.on("connection", (socket) => {
     const documentos = await obterDocumentos();
 
     devolverDocumentos(documentos);
+  });
+
+  socket.on("adicionar_documento", async (nome) => {
+    const resultado = await adicionarDocumento(nome);
+
+    if(resultado.acknowledged) {
+      io.emit("adicionar_documento_interface", nome);
+    }
   });
 
   socket.on("selecionar_documento", async (nomeDocumento, devolverTexto) => {
@@ -23,7 +32,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("texto_editor", async ({ texto, nomeDocumento }) => {
-    const atualizacao = await atualizaDocumento(nomeDocumento, texto);
+    const atualizacao = await atualizarDocumento(nomeDocumento, texto);
 
     if (atualizacao.modifiedCount) {
       socket.to(nomeDocumento).emit("texto_duplicado_para_todos", texto);
