@@ -15,7 +15,6 @@ tituloDocumento.textContent = nomeDocumento || "Documento sem título";
 
 selecionarDocumento(nomeDocumento);
 
-
 textoEditor.addEventListener("keyup", () => {
   emitirTextoEditor({
     texto: textoEditor.value,
@@ -29,6 +28,13 @@ function atualizaTextoEditor(texto) {
 
 botaoExcluir.addEventListener("click", () => {
   emitirDeletarDocumento(nomeDocumento);
-})
+});
 
-export { atualizaTextoEditor };
+function alertarERedirecionar(nome) {
+  if (nome === nomeDocumento) {
+    alert(`Documento ${nome} deletado com sucesso!`);
+    window.location.href = "/";
+  }
+}
+
+export { atualizaTextoEditor, alertarERedirecionar };
